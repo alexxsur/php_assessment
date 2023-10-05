@@ -43,5 +43,27 @@ class XlsxServerDataHandler
             return false;
         }
     }
+
+    public function parseHddSpecifications(string $hddSpecification) : array
+    {
+        // Define a regular expression pattern to match the capacity and type
+        $pattern = '/(\d+)x(\d+)([TtGg][Bb])(\w+)/';
+
+        // Use preg_match to extract the values
+        if (preg_match($pattern, $hddSpecification, $matches)) {
+
+            $multiplier = (strtolower($matches[3]) === 'tb') ? 1000 : 1;
+            $capacity = $matches[1] * $matches[2] * $multiplier;
+
+            return [
+                'hdd_capacity' => $capacity,
+                'hdd_type' => $matches[4]
+            ];
+        } else {
+            return false;
+        }
+
+    }
+
 }
 
