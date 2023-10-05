@@ -11,6 +11,7 @@ class XlsxServerDataHandler
         foreach ($data as $value) {
 
             $parsedRamSpecification = $this->parseRamSpecification($value[1]);
+            $parsedHddSpecification = $this->parseHddSpecifications($value[2]);
 
             $formated_data[] = [
                 'model'        => $value[0],
@@ -20,6 +21,8 @@ class XlsxServerDataHandler
                 'price'        => $value[4],
                 'ram_capacity' => $parsedRamSpecification['ram_capacity'],
                 'ram_type'     => $parsedRamSpecification['ram_type'],
+                'hdd_capacity' => $parsedHddSpecification['hdd_capacity'],
+                'hdd_type'     => $parsedHddSpecification['hdd_type']
             ];
         }
 
