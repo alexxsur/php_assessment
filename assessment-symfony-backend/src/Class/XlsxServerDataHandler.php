@@ -6,6 +6,7 @@ class XlsxServerDataHandler
 {
     public function formatArrayData(array $data) : array
     {
+        // Unset header xlsx row
         unset($data[0]);
 
         foreach ($data as $value) {
@@ -16,13 +17,13 @@ class XlsxServerDataHandler
             $formated_data[] = [
                 'model'        => $value[0],
                 'ram'          => $value[1],
-                'hdd'          => $value[2],
-                'location'     => $value[3],
-                'price'        => $value[4],
                 'ram_capacity' => $parsedRamSpecification['ram_capacity'],
                 'ram_type'     => $parsedRamSpecification['ram_type'],
+                'hdd'          => $value[2],
                 'hdd_capacity' => $parsedHddSpecification['hdd_capacity'],
-                'hdd_type'     => $parsedHddSpecification['hdd_type']
+                'hdd_type'     => $parsedHddSpecification['hdd_type'],
+                'location'     => $value[3],
+                'price'        => $value[4],
             ];
         }
 
