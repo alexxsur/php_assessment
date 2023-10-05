@@ -10,7 +10,7 @@ class XlsxServerDataHandler
 
         foreach ($data as $value) {
 
-            $splittedRamSpecification = $this->splitRamSpecification($value[1]);
+            $parsedRamSpecification = $this->parseRamSpecification($value[1]);
 
             $formated_data[] = [
                 'model'        => $value[0],
@@ -18,15 +18,15 @@ class XlsxServerDataHandler
                 'hdd'          => $value[2],
                 'location'     => $value[3],
                 'price'        => $value[4],
-                'ram_capacity' => $splittedRamSpecification['ram_capacity'],
-                'ram_type'     => $splittedRamSpecification['ram_type']
+                'ram_capacity' => $parsedRamSpecification['ram_capacity'],
+                'ram_type'     => $parsedRamSpecification['ram_type'],
             ];
         }
 
         return $formated_data;
     }
 
-    public function splitRamSpecification(string $ramSpecification) : array
+    public function parseRamSpecification(string $ramSpecification) : array
     {
         // Define a regular expression pattern to match the capacity and type
         $pattern = '/^(\d+)GB(\w+)/';
