@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use App\Service\XlsxDatabaseService;
 use App\Class\XlsxServerDataHandler;
@@ -21,6 +21,6 @@ class ServerController extends AbstractController
         $xlsx_handler = new XlsxServerDataHandler();
         $formated_data = $xlsx_handler->formatArrayData($data);
 
-        return new Response(serialize($formated_data));
+        return new JsonResponse($formated_data);
     }
 }
