@@ -69,5 +69,27 @@ class XlsxServerDataHandler
 
     }
 
+    public function filterServersList(array $servers, array $filters) : array
+    {
+        $filters['ram'] = empty($filters['ram']) ? null : $filters['ram'];
+
+        // Apply the filters to the data array
+        $filteredServersList = [];
+        foreach ($servers as $server) {
+            // Check each filter criterion
+            $passLocationFilter = $filters['location'] === null ||$server['location']     === $filters['location'];
+            $passStorageFilter  = $filters['storage']  === null || $server['hdd_capacity'] <= $filters['storage'];
+            $passRamFilter      = $filters['ram']      === null || in_array($server['ram_capacity'], $filters['ram']);
+            $passHddTypeFilter  = $filters['hdd_type'] === null || str_contains($server['hdd_type'], $filters['hdd_type']);
+
+            // If all filters pass, add the server to the filtered array
+            if ($passStorageFilter && $passRamFilter && $passHddTypeFilter  && $passLocationFilter) {
+                $filteredServersList[] = $server;
+            }
+        }
+
+        return $filteredServersList;
+    }
+
 }
 
