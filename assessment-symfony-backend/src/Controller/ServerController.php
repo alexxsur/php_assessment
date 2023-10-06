@@ -12,7 +12,7 @@ use App\Class\XlsxServerDataHandler;
 class ServerController extends AbstractController
 {
     #[Route('/server', name: 'server_list', methods:['GET'])]
-    public function list(XlsxDatabaseService $xlsxDatabase)
+    public function list(Request $request, XlsxDatabaseService $xlsxDatabase) : JsonResponse
     {
         // Read data from the xlsx file
         $data = $xlsxDatabase->readData();
@@ -21,6 +21,14 @@ class ServerController extends AbstractController
         $xlsx_handler = new XlsxServerDataHandler();
         $formated_data = $xlsx_handler->formatArrayData($data);
 
-        return new JsonResponse($formated_data);
+        // Get filters
+        $filters['storage']  = $request->query->get('storage');
+        $filters['hdd_type'] = $request->query->get('hdd_type');
+        $filters['location'] = $request->query->get('location');
+        $filters['ram']      = $request->query->all('ram');
+
+        $filtered_data = $xlsx_handler->filterServersList($formated_data, $filters);
+
+        return new JsonResponse($filtered_data);
     }
 }
