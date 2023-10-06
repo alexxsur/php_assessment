@@ -31,4 +31,17 @@ class ServerController extends AbstractController
 
         return new JsonResponse($filtered_data);
     }
+
+    #[Route('/server/locations', name: 'server_locations', methods:['GET'])]
+    public function getServerLocations(XlsxDatabaseService $xlsxDatabase) : JsonResponse
+    {
+        // Read data from the xlsx file
+        $data = $xlsxDatabase->readData();
+
+        // Format xlsx data
+        $xlsx_handler = new XlsxServerDataHandler();
+        $locations = $xlsx_handler->getLocations($data);
+
+        return new JsonResponse($locations);
+    }
 }

@@ -77,18 +77,30 @@ class XlsxServerDataHandler
         $filteredServersList = [];
         foreach ($servers as $server) {
             // Check each filter criterion
-            $passLocationFilter = $filters['location'] === null ||$server['location']     === $filters['location'];
+            $passLocationFilter = $filters['location'] === null || $server['location']     === $filters['location'];
             $passStorageFilter  = $filters['storage']  === null || $server['hdd_capacity'] <= $filters['storage'];
             $passRamFilter      = $filters['ram']      === null || in_array($server['ram_capacity'], $filters['ram']);
             $passHddTypeFilter  = $filters['hdd_type'] === null || str_contains($server['hdd_type'], $filters['hdd_type']);
 
             // If all filters pass, add the server to the filtered array
-            if ($passStorageFilter && $passRamFilter && $passHddTypeFilter  && $passLocationFilter) {
+            if ($passStorageFilter && $passRamFilter && $passHddTypeFilter && $passLocationFilter) {
                 $filteredServersList[] = $server;
             }
         }
 
         return $filteredServersList;
+    }
+
+    public function getLocations(array $data) : array
+    {
+        // Unset header xlsx row
+        unset($data[0]);
+
+        // location column 3
+        $locations = array_column($data, 3);
+
+        // remove duplicates and return
+        return array_values(array_unique($locations));
     }
 
 }
