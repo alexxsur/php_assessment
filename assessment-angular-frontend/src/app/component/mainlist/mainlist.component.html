@@ -1,1 +1,78 @@
-<p>mainlist works!</p>
+<div class="container">
+    <div class="row align-items-start">
+        <div class="col">
+            <form>
+
+                <div class="col col-4">
+                <div class="mb-3">
+                    <label for="customRange1" class="form-label">Size Storage</label>
+                    <input class="form-range"  type="range" min="0" max="100" #ranger (input)="onChangeRangeStorage(ranger.value)">  
+                </div>
+                <div class="mb-3">
+
+                    <div *ngFor="let item of filterCheck ; index as i" class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox"  [value]="item.value"  (change)="onCheckboxChange(item, i)">
+                        <!-- <input class="form-check-input" type="checkbox" [value]="item.value"  name="ProductId-{{i}}"   (change)="onCheckboxChange(item, i, !item.value)"> -->
+                        <label class="form-check-label" for="inlineCheckbox1">{{ item.label }}</label>
+                    </div>
+
+
+                </div>
+                <div class="mb-3">
+                    <select class="form-select" id="selectTypeHardDriver" (change)="onChangeHardDrive($event.target)" aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                        <option value="SAS">SAS</option>
+                        <option value="SATA">SATA</option>
+                        <option value="SSD">SSD</option>
+                      </select>
+                </div>
+                <div class="mb-3">
+                    <select class="form-select" id="selectLocation" (change)="onChangeLocation($event.target)"aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                        <option value="AmsterdamAMS-01">AmsterdamAMS-01</option>
+                        <option value="Washington D.C.WDC-01">Washington D.C.WDC-01</option>
+                        <option value="San FranciscoSFO-12">San FranciscoSFO-12</option>
+                        <option value="SingaporeSIN-11">SingaporeSIN-11</option>
+                      </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            </form>
+
+
+
+
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Handle</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Larry the Bird</td>
+                    <td>@twitter</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
