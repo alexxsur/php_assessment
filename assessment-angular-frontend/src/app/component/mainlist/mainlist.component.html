@@ -12,7 +12,6 @@
 
                     <div *ngFor="let item of filterCheck ; index as i" class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox"  [value]="item.value"  (change)="onCheckboxChange(item, i)">
-                        <!-- <input class="form-check-input" type="checkbox" [value]="item.value"  name="ProductId-{{i}}"   (change)="onCheckboxChange(item, i, !item.value)"> -->
                         <label class="form-check-label" for="inlineCheckbox1">{{ item.label }}</label>
                     </div>
 
