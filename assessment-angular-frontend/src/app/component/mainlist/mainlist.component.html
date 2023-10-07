@@ -3,31 +3,47 @@
         <div class="col">
             <form>
 
-                <div class="col col-4">
+                <div class="col col-8">
                 <div class="mb-3">
-                    <label for="customRange1" class="form-label">Size Storage</label>
-                    <input class="form-range"  type="range" min="0" max="100" #ranger (input)="onChangeRangeStorage(ranger.value)">  
-                </div>
-                <div class="mb-3">
+                    <label for="customRange1" class="form-label">Storage</label>
+                    <input class="form-range"  type="range" min="0" step="9.09" max="100" value="99.99" #ranger (input)="onChangeRangeStorage(ranger.value)">
+                    <table class="table-range">
+                        <tr>
+                            <td  style="width: 5%">0</td>
+                            <td class="td-range">250GB</td>
+                            <td class="td-range">500GB</td>
+                            <td class="td-range">1TB</td>
+                            <td class="td-range">2TB</td>
+                            <td class="td-range">3TB</td>
+                            <td class="td-range">4TB</td>
+                            <td class="td-range">8TB</td>
+                            <td class="td-range">12TB</td>
+                            <td class="td-range">24TB</td>
+                            <td class="td-range">48TB</td>
+                            <td class="td-range">72TB</td>
+                        </tr>
+                    </table>
 
-                    <div *ngFor="let item of filterCheck ; index as i" class="form-check form-check-inline">
+                </div>
+                <label for="divcheck" class="form-label">Ram</label>
+                <div id="divcheck" class="mb-3">
+                    <div *ngFor="let item of ramCheckFilter ; index as i" class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox"  [value]="item.value"  (change)="onCheckboxChange(item, i)">
                         <label class="form-check-label" for="inlineCheckbox1">{{ item.label }}</label>
                     </div>
-
-
                 </div>
+
                 <div class="mb-3">
-                    <select class="form-select" id="selectTypeHardDriver" (change)="onChangeHardDrive($event.target)" aria-label="Default select example">
-                        <option selected>Open this select menu</option>
+                    <select class="form-select" id="selectTypeHardDrive" (change)="onChangeHardDrive($event.target)">
+                        <option selected>Select Harddisk type</option>
                         <option value="SAS">SAS</option>
                         <option value="SATA">SATA</option>
                         <option value="SSD">SSD</option>
                       </select>
                 </div>
                 <div class="mb-3">
-                    <select class="form-select" id="selectLocation" (change)="onChangeLocation($event.target)"aria-label="Default select example">
-                        <option selected>Open this select menu</option>
+                    <select class="form-select" id="selectLocation" (change)="onChangeLocation($event.target)">
+                        <option selected>Select Location</option>
                         <option value="AmsterdamAMS-01">AmsterdamAMS-01</option>
                         <option value="Washington D.C.WDC-01">Washington D.C.WDC-01</option>
                         <option value="San FranciscoSFO-12">San FranciscoSFO-12</option>
@@ -39,35 +55,25 @@
             </div>
             </form>
 
-
-
-
             <table class="table table-bordered">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">Model</th>
+                    <th scope="col">RAM</th>
+                    <th scope="col">HDD</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Price</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
+                <tr *ngFor="let item of itemsList ; index as i">
+                    <th scope="row">{{ i }}</th>
+                    <td>{{ item.model }}</td>
+                    <td>{{ item.ram }}</td>
+                    <td>{{ item.hdd }}</td>
+                    <td>{{ item.location }}</td>
+                    <td>{{ item.price }}</td>
                 </tr>
                 </tbody>
             </table>

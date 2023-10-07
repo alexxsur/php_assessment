@@ -8,20 +8,21 @@ import { ServicesRequestService } from 'src/app/service/services-request.service
 })
 export class MainlistComponent implements OnInit{
 
-  range:number = 0;
-  hardDrive: String = '';
-  location: String = '';
-  filterCheck: any[] = [
-    {label: "2GB", value: false},
-    {label: "4GB", value: false},
-    {label: "8GB", value: false},
-    {label: "12GB", value: false},
-    {label: "16GB", value: false},
-    {label: "24GB", value: false},
-    {label: "32GB", value: false},
-    {label: "48GB", value: false},
-    {label: "64GB", value: false},
-    {label: "96GB", value: false},
+  itemsList : any[] = [];
+  rangeStorage:number = 0;
+  hddType: string = '';
+  location: string = '';
+  ramCheckFilter: any[] = [
+    {label: "2GB", ramCapacity: 2, active: false},
+    {label: "4GB", ramCapacity: 4, active: false},
+    {label: "8GB", ramCapacity: 8, active: false},
+    {label: "12GB", ramCapacity: 12, active: false},
+    {label: "16GB", ramCapacity: 16, active: false},
+    {label: "24GB", ramCapacity: 24, active: false},
+    {label: "32GB", ramCapacity: 32, active: false},
+    {label: "48GB", ramCapacity: 48, active: false},
+    {label: "64GB", ramCapacity: 64, active: false},
+    {label: "96GB", ramCapacity: 96, active: false},
   ]
 
   constructor( private servicesRequest: ServicesRequestService){
@@ -31,42 +32,65 @@ export class MainlistComponent implements OnInit{
 
     this.servicesRequest.getObservable()
       .subscribe({
-        next: (v) => {
-          console.log(v);
+        next: (value) => {
+          this.itemsList = value;
         },
       });
 
   }
 
   onCheckboxChange(item: any, index: number): void{
-    console.log("item:", item);
-    console.log("index:" + index);
-    this.filterCheck[index].value = !item.value;
-    console.log(this.filterCheck);
+    //console.log("item:", item);
+    //console.log("index:" + index);
+    this.ramCheckFilter[index].active = !item.active;
+    //console.log(this.ramCheckFilter);
     this.applyFilter();
 
   }
   onChangeRangeStorage(rangeSelected: any): void{
+    //console.log(rangeSelected);
+    this.rangeStorage = rangeSelected;
+
+    if (rangeSelected <= 18.8) {
+      rangeSelected = (rangeSelected/9.09)*250;
+    } else if(rangeSelected <= 45.45){
+      rangeSelected = ((rangeSelected/9.09) - 2)*1000;
+    } else if(rangeSelected <= 72.72){
+      rangeSelected = ((rangeSelected/9.09) - 4)*4000 - 4000;
+    } else if(rangeSelected <= 81.81){
+      rangeSelected = ((rangeSelected/9.09) -6)*12000 - 12000;
+    } else if(rangeSelected <= 90.90){
+      rangeSelected = ((rangeSelected/9.09) -8)*48000 - 48000;
+    } else if(rangeSelected <= 100){
+      rangeSelected = ((rangeSelected/9.09) -10)*72000;
+    }
+
     console.log(rangeSelected);
+
+    this.rangeStorage = rangeSelected;
     this.applyFilter();
 
   }
-  onChangeHardDrive(valuSelected: any): void{
-    console.log(valuSelected.value);
-    this.hardDrive = valuSelected.value;
+  onChangeHardDrive(selectedValue: any): void{
+    //console.log(selectedValue.value);
+    this.hddType = selectedValue.value;
     this.applyFilter();
   }
 
-  onChangeLocation(valuSelected: any): void{
-    console.log(valuSelected.value);
-    this.location = valuSelected.value;
+  onChangeLocation(selectedValue: any): void{
+    //console.log(selectedValue.value);
+    this.location = selectedValue.value;
     this.applyFilter();
   }
-
-  websiteList: any = ['Javatpoint.com', 'HDTuto.com', 'Tutorialandexample.com']; 
 
   applyFilter(): void{
-    this.servicesRequest.searchByFilter(this.hardDrive);
+    let filterObject = {
+      rangeStorage   : this.rangeStorage,
+      hddType        : this.hddType,
+      location       : this.location,
+      ramCheckFilter : this.ramCheckFilter,
+    }
+    this.servicesRequest.searchByFilter(filterObject);
   }
 
 }
