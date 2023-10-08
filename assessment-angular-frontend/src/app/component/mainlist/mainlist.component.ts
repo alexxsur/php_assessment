@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { ServicesRequestService } from 'src/app/service/services-request.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-mainlist',
@@ -9,7 +10,8 @@ import { ServicesRequestService } from 'src/app/service/services-request.service
 export class MainlistComponent implements OnInit{
 
   itemsList : any[] = [];
-  rangeStorage:number = 0;
+  locationsList : any[] = [];
+  rangeStorage:number = 250;
   hddType: string = '';
   location: string = '';
   ramCheckFilter: any[] = [
@@ -25,7 +27,7 @@ export class MainlistComponent implements OnInit{
     {label: "96GB", ramCapacity: 96, active: false},
   ]
 
-  constructor( private servicesRequest: ServicesRequestService){
+  constructor( private servicesRequest: ServicesRequestService, private http: HttpClient){
 
   }
   ngOnInit(): void {
@@ -37,6 +39,14 @@ export class MainlistComponent implements OnInit{
         },
       });
 
+    let urlServerQueryString = 'http://127.0.0.1:8000/server/locations';
+
+    this.http.get<any>(urlServerQueryString).subscribe(data => {
+        console.log(data);
+        this.locationsList = data;
+    })
+
+    this.applyFilter();
   }
 
   onCheckboxChange(item: any, index: number): void{

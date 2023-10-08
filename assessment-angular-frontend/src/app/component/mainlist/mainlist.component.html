@@ -6,7 +6,7 @@
                 <div class="col col-8">
                 <div class="mb-3">
                     <label for="customRange1" class="form-label">Storage</label>
-                    <input class="form-range"  type="range" min="0" step="9.09" max="100" value="99.99" #ranger (input)="onChangeRangeStorage(ranger.value)">
+                    <input class="form-range"  type="range" min="0" step="9.09" max="100" value="9.09" #ranger (input)="onChangeRangeStorage(ranger.value)">
                     <table class="table-range">
                         <tr>
                             <td  style="width: 5%">0</td>
@@ -43,15 +43,10 @@
                 </div>
                 <div class="mb-3">
                     <select class="form-select" id="selectLocation" (change)="onChangeLocation($event.target)">
-                        <option selected value="">Select Location</option>
-                        <option value="AmsterdamAMS-01">AmsterdamAMS-01</option>
-                        <option value="Washington D.C.WDC-01">Washington D.C.WDC-01</option>
-                        <option value="San FranciscoSFO-12">San FranciscoSFO-12</option>
-                        <option value="SingaporeSIN-11">SingaporeSIN-11</option>
+                        <option  selected value="">Select Location</option>
+                        <option *ngFor="let locationItem of locationsList" [value]="locationItem">{{locationItem}}</option>
                       </select>
                 </div>
-
-                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
             </form>
 

@@ -10,7 +10,6 @@ export class ServicesRequestService {
   constructor(private http: HttpClient) { }
 
   public searchByFilter(filter:any){
-    //console.log(filter);
 
     let ramFilterString = '';
     let ramCheckedValues = filter.ramCheckFilter.filter((ramCheckItem: any) => ramCheckItem.active);
@@ -39,23 +38,19 @@ export class ServicesRequestService {
       filtersString = `?storage=${filter.rangeStorage}&hdd_type=${filter.hddType}`;
     } else if (filter.location !== '') {
       filtersString = `?storage=${filter.rangeStorage}&location=${filter.location}`;
+    } else {
+      filtersString = `?storage=${filter.rangeStorage}`;
     }
 
     let urlServerQueryString = `${apiHost}${apiEndpoint}${filtersString}`;
 
     console.log(urlServerQueryString);
 
-    let dataList;
-
     this.http.get<any>(urlServerQueryString).subscribe(data => {
         console.log(data);
-        dataList = data;
-        //console.log(dataList.results);
+       this.subject.next(data);
     })
 
-    let itemList : any[] = [];
-
-    this.subject.next(itemList);
   }
 
   public getObservable(): Subject<any>{
