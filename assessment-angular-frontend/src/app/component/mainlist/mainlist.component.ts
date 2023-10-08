@@ -42,7 +42,6 @@ export class MainlistComponent implements OnInit{
     let urlServerQueryString = 'http://127.0.0.1:8000/server/locations';
 
     this.http.get<any>(urlServerQueryString).subscribe(data => {
-        console.log(data);
         this.locationsList = data;
     })
 
@@ -50,15 +49,11 @@ export class MainlistComponent implements OnInit{
   }
 
   onCheckboxChange(item: any, index: number): void{
-    //console.log("item:", item);
-    //console.log("index:" + index);
     this.ramCheckFilter[index].active = !item.active;
-    //console.log(this.ramCheckFilter);
     this.applyFilter();
 
   }
   onChangeRangeStorage(rangeSelected: any): void{
-    //console.log(rangeSelected);
     this.rangeStorage = rangeSelected;
 
     if (rangeSelected <= 18.8) {
@@ -75,20 +70,17 @@ export class MainlistComponent implements OnInit{
       rangeSelected = ((rangeSelected/9.09) -10)*72000;
     }
 
-    console.log(rangeSelected);
 
     this.rangeStorage = rangeSelected;
     this.applyFilter();
 
   }
   onChangeHardDrive(selectedValue: any): void{
-    //console.log(selectedValue.value);
     this.hddType = selectedValue.value;
     this.applyFilter();
   }
 
   onChangeLocation(selectedValue: any): void{
-    //console.log(selectedValue.value);
     this.location = selectedValue.value;
     this.applyFilter();
   }

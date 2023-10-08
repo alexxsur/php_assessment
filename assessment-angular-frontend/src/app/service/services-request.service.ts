@@ -22,7 +22,6 @@ export class ServicesRequestService {
     let apiEndpoint = '/server';
     let filtersString = '';
 
-    console.log(ramFilterString);
 
     if (ramFilterString !== '' && filter.hddType !== '' && filter.location !== '') {
       filtersString = `?storage=${filter.rangeStorage}&hdd_type=${filter.hddType}&location=${filter.location}&${ramFilterString}`;
@@ -44,10 +43,8 @@ export class ServicesRequestService {
 
     let urlServerQueryString = `${apiHost}${apiEndpoint}${filtersString}`;
 
-    console.log(urlServerQueryString);
 
     this.http.get<any>(urlServerQueryString).subscribe(data => {
-        console.log(data);
        this.subject.next(data);
     })
 
