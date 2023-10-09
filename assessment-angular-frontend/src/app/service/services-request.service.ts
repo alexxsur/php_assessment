@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { AppConfig } from 'src/app/config/config';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class ServicesRequestService {
         ramFilterString = `${ramFilterString}${ramFilterString != '' ? '&' : ''}ram[]=${item.ramCapacity}`;
     }
 
-    let apiHost = 'http://localhost:8000';
+    let apiHost = AppConfig.apiUrl;
     let apiEndpoint = '/server';
     let filtersString = '';
 

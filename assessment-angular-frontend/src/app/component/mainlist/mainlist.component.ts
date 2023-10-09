@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { ServicesRequestService } from 'src/app/service/services-request.service';
 import { HttpClient } from '@angular/common/http';
+import { AppConfig } from 'src/app/config/config';
 
 @Component({
   selector: 'app-mainlist',
@@ -39,7 +40,9 @@ export class MainlistComponent implements OnInit{
         },
       });
 
-    let urlServerQueryString = 'http://127.0.0.1:8000/server/locations';
+    let apiHost = AppConfig.apiUrl;
+    let apiEndpoint = '/server/locations';
+    let urlServerQueryString = `${apiHost}${apiEndpoint}`;
 
     this.http.get<any>(urlServerQueryString).subscribe(data => {
         this.locationsList = data;
