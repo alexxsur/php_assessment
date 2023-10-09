@@ -51,11 +51,6 @@ export const AppConfig = {
   };
 ```
 
-export const AppConfig = {
-    apiUrl: 'http://localhost:8000', // Replace with API host URL
-  };
-```
-
 **7.** Return to the root of the "assessment-angular-frontend" directory where the package.json file is located and run npm install
 `npm install` which will install the dependencies of the angular project
 
