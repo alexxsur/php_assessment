@@ -31,10 +31,10 @@ After being executed, it will show the url on which it is listening: generally "
 
 **4.** Now we can test the API endpoints using the url assigned by the Symfony Local Web Server, For example:
 
-Unfiltered list of servers
+Unfiltered list of servers:
 * http://127.0.0.1:8000/server
 
-List of locations
+List of locations:
 * http://127.0.0.1:8000/server/locations
 
 
@@ -45,6 +45,11 @@ Install Angular CLI  if it is not installed yet
 
 
 **6.** Edit the file config.ts located in the assessment-angular-frontend/src/app/config/config.ts path, modify the **apiUrl** property which must contain the url obtained in step 3, example "http://127.0.0.1:8000" which is the url to the symfony api.
+
+export const AppConfig = {
+    apiUrl: 'http://localhost:8000', // Replace with API host URL
+  };
+```
 
 **7.** Return to the root of the "assessment-angular-frontend" directory where the package.json file is located and run npm install
 `npm install` which will install the dependencies of the angular project
